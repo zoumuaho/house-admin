@@ -37,16 +37,19 @@ module.exports = {
       errors: true
     },
     proxy: {
-      [process.env.VUE_APP_BASE_API]: {
-        target: 'http://127.0.0.1:8098/hotel-web',
-        /** 配置跨域 */
+      '/api': {
+        target: 'http://localhost:8098',
         changeOrigin: true,
-        pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API] :''
+        pathRewrite: { '^/api': '/hotel-api' },
+        cookieDomainRewrite: {
+          '*': 'localhost'
+        },
+        cookiePathRewrite: {
+          '*': '/'
         }
       }
     }
-    //before: require('./mock/mock-server.js')
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
