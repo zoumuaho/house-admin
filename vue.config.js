@@ -37,15 +37,12 @@ module.exports = {
       errors: true
     },
     proxy: {
-      '/api': {
-        target: 'http://localhost:8098',
+      [process.env.VUE_APP_BASE_API]: {
+        target: 'http://127.0.0.1:8098/hotel-api',
+        /** 配置跨域 */
         changeOrigin: true,
-        pathRewrite: { '^/api': '/hotel-api' },
-        cookieDomainRewrite: {
-          '*': 'localhost'
-        },
-        cookiePathRewrite: {
-          '*': '/'
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
         }
       }
     }
